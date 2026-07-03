@@ -1,0 +1,50 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 400px;
+  padding-top: 8px; /* Évite que le contour Material touche le titre */
+}
+
+.full-width {
+  width: 100%;
+}
+
+/* Style moderne pour intégrer l'aperçu de couleur dans le mat-form-field */
+.color-picker-preview {
+  border: none;
+  background: none;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  padding: 0;
+  margin-right: 12px;
+
+  /* Rend l'aperçu de la couleur circulaire */
+  &::-webkit-color-swatch-wrapper {
+    padding: 0;
+  }
+  &::-webkit-color-swatch {
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 50%;
+  }
+}
+
+
+
+
+// .form-container {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 16px;
+//   min-width: 400px;
+// }
+//
+// .full-width {
+//   width: 100%;
+// }
+//
+// .color-input {
+//   margin-left: 10px;
+//   width: calc(100% - 60px);
+// }

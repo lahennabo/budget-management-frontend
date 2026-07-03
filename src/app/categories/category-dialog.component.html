@@ -1,0 +1,57 @@
+<h2 mat-dialog-title>@if (category.id) { Edit Category } @else { New Category }</h2>
+
+<mat-dialog-content>
+  <div class="form-container">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Name</mat-label>
+      <input matInput [(ngModel)]="category.name" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Description</mat-label>
+      <textarea matInput [(ngModel)]="category.description" rows="3"></textarea>
+    </mat-form-field>
+
+    <!-- Version corrigée et épurée pour la couleur -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Color</mat-label>
+      <!-- Le sélecteur de couleur natif sert de pastille cliquable à gauche -->
+      <input matPrefix type="color" [(ngModel)]="category.color" class="color-picker-preview">
+      <!-- Le champ texte permet de voir et modifier le code Hexadécimal -->
+      <input matInput [(ngModel)]="category.color" required placeholder="#000000">
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="onSave()" [disabled]="!category.name || !category.color">Save</button>
+</mat-dialog-actions>
+
+
+<!--<h2 mat-dialog-title>@if (category.id) { Edit Category } @else { New Category }</h2>-->
+
+<!--<mat-dialog-content>-->
+<!--  <div class="form-container">-->
+<!--    <mat-form-field appearance="outline" class="full-width">-->
+<!--      <mat-label>Name</mat-label>-->
+<!--      <input matInput [(ngModel)]="category.name" [ngModelOptions]="{standalone: true}" required>-->
+<!--    </mat-form-field>-->
+
+<!--    <mat-form-field appearance="outline" class="full-width">-->
+<!--      <mat-label>Description</mat-label>-->
+<!--      <textarea matInput [(ngModel)]="category.description" [ngModelOptions]="{standalone: true}" rows="3"></textarea>-->
+<!--    </mat-form-field>-->
+
+<!--    <mat-form-field appearance="outline" class="full-width">-->
+<!--      <mat-label>Color</mat-label>-->
+<!--      <input matInput type="color" [(ngModel)]="category.color" [ngModelOptions]="{standalone: true}" required>-->
+<!--      <input matInput [(ngModel)]="category.color" [ngModelOptions]="{standalone: true}" required class="color-input">-->
+<!--    </mat-form-field>-->
+<!--  </div>-->
+<!--</mat-dialog-content>-->
+
+<!--<mat-dialog-actions align="end">-->
+<!--  <button mat-button (click)="onCancel()">Cancel</button>-->
+<!--  <button mat-raised-button color="primary" (click)="onSave()">Save</button>-->
+<!--</mat-dialog-actions>-->

@@ -1,0 +1,119 @@
+<div class="dashboard-container">
+  <h2>Dashboard</h2>
+  @if (loading) {
+    <p>Dans loading-container......</p>
+    <div class="loading-container"> <mat-spinner></mat-spinner> </div>
+  }
+  @else {
+    <div class="summary-cards">
+      <mat-card class="summary-card income">
+        <mat-card-header>
+          <mat-card-title>Total Income</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p class="amount">{{ totalIncome | currency }}</p>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="summary-card expense">
+        <mat-card-header>
+          <mat-card-title>Total Expenses</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p class="amount">{{ totalExpenses | currency }}</p>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="summary-card balance">
+        <mat-card-header>
+          <mat-card-title>Balance</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p class="amount" [class.positive]="balance >= 0" [class.negative]="balance < 0">
+            {{ balance | currency }}
+          </p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div class="recent-sections">
+      <mat-card class="recent-card">
+        <mat-card-header>
+          <mat-card-title>Recent Transactions</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          @if (transactions.length === 0) {
+            <p class="no-data">No transactions yet</p>
+          } @else {
+            <table mat-table [dataSource]="transactions.slice(0, 5)" class="mat-elevation-z8">
+              <ng-container matColumnDef="description">
+                <th mat-header-cell *matHeaderCellDef>Description</th>
+                <td mat-cell *matCellDef="let transaction">{{ transaction.description }}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="amount">
+                <th mat-header-cell *matHeaderCellDef>Amount</th>
+                <td mat-cell *matCellDef="let transaction">
+                  {{ transaction.amount | currency }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="type">
+                <th mat-header-cell *matHeaderCellDef>Type</th>
+                <td mat-cell *matCellDef="let transaction">
+                  <span [class.income]="transaction.type === 'INCOME'"
+                        [class.expense]="transaction.type === 'EXPENSE'">
+                    {{ transaction.type }}
+                  </span>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef>Date</th>
+                <td mat-cell *matCellDef="let transaction">{{ transaction.date | date:'shortDate' }}</td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="['description', 'amount', 'type', 'date']"></tr>
+              <tr mat-row *matRowDef="let row; columns: ['description', 'amount', 'type', 'date']"></tr>
+            </table>
+          }
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="recent-card">
+        <mat-card-header>
+          <mat-card-title>Active Budgets</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          @if (budgets.length === 0) {
+          <p class="no-data">no budgets set</p>
+          } @else {
+          <table mat-table [dataSource]="budgets" class="mat-elevation-z8">
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef>Name</th>
+              <td mat-cell *matCellDef="let budget">{{ budget.name }}</td>
+            </ng-container>
+
+            <!-- Limit Column -->
+            <ng-container matColumnDef="limitamount">
+              <th mat-header-cell *matHeaderCellDef>Limit</th>
+              <td mat-cell *matCellDef="let budget">{{ budget.limitAmount | currency }}</td>
+            </ng-container>
+
+            <!-- Period Column -->
+            <ng-container matColumnDef="period">
+              <th mat-header-cell *matHeaderCellDef>Period</th>
+              <td mat-cell *matCellDef="let budget">{{ budget.period }}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="['name', 'limitamount', 'period']"></tr>
+            <tr mat-row *matRowDef="let row; columns: ['name', 'limitamount', 'period']"></tr>
+          </table>
+          }
+        </mat-card-content>
+      </mat-card>
+    </div>
+  }
+</div>

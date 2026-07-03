@@ -1,0 +1,58 @@
+@use '@angular/material' as mat;
+
+
+$my-theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: mat.$blue-palette, // Works perfectly in M3
+    tertiary: mat.$orange-palette,
+  )
+));
+
+// 3. Application globale du thème à tous les composants
+html {
+  @include mat.theme($my-theme);
+}
+
+// 4. Vos styles globaux personnalisés
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+// @use '@angular/material' as mat;
+
+// @include mat-core();
+// @include mat.core();
+
+// $primary-palette: mat-palette($mat-indigo);
+// $accent-palette: mat-palette($mat-pink, A200, A100, A400);
+
+/* 2. Utilisez mat.m2-define-palette (ou mat.define-palette selon votre version)
+      et remplacez $mat-indigo par mat.$indigo-palette */
+// $primary-palette: mat.define-palette(mat.$indigo-palette);
+// $accent-palette:  mat.define-palette(mat.$pink-palette);
+
+// $theme: mat-light-theme((
+//   color: (
+//     primary: $primary-palette,
+//     accent: $accent-palette,
+//   )
+// ));
+
+/* 3. Mettez aussi à jour la définition du thème */
+// $theme: mat.define-light-theme((
+//   color: (
+//     primary: $primary-palette,
+//     accent: $accent-palette,
+//   )
+// ));
+
+// @include angular-material-theme($theme);
+//
+// html, body {
+//   height: 100%;
+//   margin: 0;
+//   font-family: Roboto, 'Helvetica Neue', sans-serif;
+// }

@@ -1,0 +1,145 @@
+<div class="transactions-container">
+  <div class="header">
+    <h2>Transactions</h2>
+    <button mat-raised-button color="primary" (click)="openDialog()">
+      <mat-icon>add</mat-icon>
+      Add Transaction
+    </button>
+  </div>
+
+  @if (loading) {
+  <div class="loading-container">
+    <mat-spinner></mat-spinner>
+  </div>
+  } @else {
+  <mat-card class="table-card">
+    <mat-card-content>
+      @if (transactions.length === 0) {
+      <p class="no-data">No transactions yet. Click "Add Transaction" to create one.</p>
+      } @else {
+      <table mat-table [dataSource]="transactions" class="mat-elevation-z8">
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef>Description</th>
+          <td mat-cell *matCellDef="let transaction">{{ transaction.description }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="amount">
+          <th mat-header-cell *matHeaderCellDef>Amount</th>
+          <td mat-cell *matCellDef="let transaction">{{ transaction.amount | currency }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef>Type</th>
+          <td mat-cell *matCellDef="let transaction">
+                <span [class.income]="transaction.type === 'INCOME'"
+                      [class.expense]="transaction.type === 'EXPENSE'">
+                  {{ transaction.type }}
+                </span>
+          </td>
+        </ng-container>
+
+        <!-- LIGNE CORRIGÉE : Utilisation du chaînage optionnel et fallback -->
+        <ng-container matColumnDef="category">
+          <th mat-header-cell *matHeaderCellDef>Category</th>
+          <td mat-cell *matCellDef="let transaction">
+            {{ getCategoryName(transaction.category?.id || transaction.category) }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef>Date</th>
+          <td mat-cell *matCellDef="let transaction">{{ transaction.date | date:'shortDate' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let transaction">
+            <button mat-icon-button (click)="openDialog(transaction)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteTransaction(transaction.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+      }
+    </mat-card-content>
+  </mat-card>
+  }
+</div>
+
+
+<!--<div class="transactions-container">-->
+<!--  <div class="header">-->
+<!--    <h2>Transactions</h2>-->
+<!--    <button mat-raised-button color="primary" (click)="openDialog()">-->
+<!--      <mat-icon>add</mat-icon>-->
+<!--      Add Transaction-->
+<!--    </button>-->
+<!--  </div>-->
+
+<!--  @if (loading) {-->
+<!--    <div class="loading-container">-->
+<!--      <mat-spinner></mat-spinner>-->
+<!--    </div>-->
+<!--  } @else {-->
+<!--    <mat-card class="table-card">-->
+<!--      <mat-card-content>-->
+<!--        @if (transactions.length === 0) {-->
+<!--          <p class="no-data">No transactions yet. Click "Add Transaction" to create one.</p>-->
+<!--        } @else {-->
+<!--          <table mat-table [dataSource]="transactions" class="mat-elevation-z8">-->
+<!--            <ng-container matColumnDef="description">-->
+<!--              <th mat-header-cell *matHeaderCellDef>Description</th>-->
+<!--              <td mat-cell *matCellDef="let transaction">{{ transaction.description }}</td>-->
+<!--            </ng-container>-->
+
+<!--            <ng-container matColumnDef="amount">-->
+<!--              <th mat-header-cell *matHeaderCellDef>Amount</th>-->
+<!--              <td mat-cell *matCellDef="let transaction">{{ transaction.amount | currency }}</td>-->
+<!--            </ng-container>-->
+
+<!--            <ng-container matColumnDef="type">-->
+<!--              <th mat-header-cell *matHeaderCellDef>Type</th>-->
+<!--              <td mat-cell *matCellDef="let transaction">-->
+<!--                <span [class.income]="transaction.type === 'INCOME'" -->
+<!--                      [class.expense]="transaction.type === 'EXPENSE'">-->
+<!--                  {{ transaction.type }}-->
+<!--                </span>-->
+<!--              </td>-->
+<!--            </ng-container>-->
+
+<!--            <ng-container matColumnDef="category">-->
+<!--              <th mat-header-cell *matHeaderCellDef>Category</th>-->
+<!--              <td mat-cell *matCellDef="let transaction">{{ getCategoryName(transaction.category.id) }}</td>-->
+<!--            </ng-container>-->
+
+<!--            <ng-container matColumnDef="date">-->
+<!--              <th mat-header-cell *matHeaderCellDef>Date</th>-->
+<!--              <td mat-cell *matCellDef="let transaction">{{ transaction.date | date:'shortDate' }}</td>-->
+<!--            </ng-container>-->
+
+<!--            <ng-container matColumnDef="actions">-->
+<!--              <th mat-header-cell *matHeaderCellDef>Actions</th>-->
+<!--              <td mat-cell *matCellDef="let transaction">-->
+<!--                <button mat-icon-button (click)="openDialog(transaction)">-->
+<!--                  <mat-icon>edit</mat-icon>-->
+<!--                </button>-->
+<!--                <button mat-icon-button color="warn" (click)="deleteTransaction(transaction.id)">-->
+<!--                  <mat-icon>delete</mat-icon>-->
+<!--                </button>-->
+<!--              </td>-->
+<!--            </ng-container>-->
+
+<!--            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
+<!--            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>-->
+<!--          </table>-->
+<!--        }-->
+<!--      </mat-card-content>-->
+<!--    </mat-card>-->
+<!--  }-->
+<!--</div>-->

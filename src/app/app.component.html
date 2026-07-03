@@ -1,0 +1,10 @@
+<mat-toolbar color="primary">
+  <span>{{ title }}</span>
+  <span class="spacer"></span>
+  <button mat-button (click)="navigateTo('dashboard')">Dashboard</button>
+  <button mat-button (click)="navigateTo('transactions')">Transactions</button>
+  <button mat-button (click)="navigateTo('budgets')">Budgets</button>
+  <button mat-button (click)="navigateTo('categories')">Categories</button>
+</mat-toolbar>
+
+<router-outlet></router-outlet>

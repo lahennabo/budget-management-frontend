@@ -1,0 +1,60 @@
+<div class="budgets-container">
+  <div class="header">
+    <h2>Budgets</h2>
+    <button mat-raised-button color="primary" (click)="openDialog()">
+      <mat-icon>add</mat-icon>
+      Add Budget
+    </button>
+  </div>
+
+  @if (loading) {
+    <div class="loading-container">
+      <mat-spinner></mat-spinner>
+    </div>
+  } @else {
+    <mat-card class="table-card">
+      <mat-card-content>
+        @if (budgets.length === 0) {
+          <p class="no-data">No budgets yet. Click "Add Budget" to create one.</p>
+        } @else {
+          <table mat-table [dataSource]="budgets" class="mat-elevation-z8">
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef>Name</th>
+              <td mat-cell *matCellDef="let budget">{{ budget.name }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="limitAmount">
+              <th mat-header-cell *matHeaderCellDef>Limit Amount</th>
+              <td mat-cell *matCellDef="let budget">{{ budget.limitAmount | currency }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="period">
+              <th mat-header-cell *matHeaderCellDef>Period</th>
+              <td mat-cell *matCellDef="let budget">{{ budget.period }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="category">
+              <th mat-header-cell *matHeaderCellDef>Category</th>
+              <td mat-cell *matCellDef="let budget">{{ budget.categoryName }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef>Actions</th>
+              <td mat-cell *matCellDef="let budget">
+                <button mat-icon-button (click)="openDialog(budget)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="deleteBudget(budget.id)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
+        }
+      </mat-card-content>
+    </mat-card>
+  }
+</div>
