@@ -1,3 +1,3 @@
 export const environment = {
-  apiUrl: 'https://onrender.com'
+  apiUrl: 'https://railway.app' // Votre URL Railway ici
 };
