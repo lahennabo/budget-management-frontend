@@ -1,3 +1,3 @@
 export const environment = {
-  apiUrl: 'https://railway.app' // Votre URL Railway ici
+  apiUrl: 'https://backend-budget-management-production.up.railway.app' // Votre URL Railway ici
 };
