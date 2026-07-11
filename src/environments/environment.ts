@@ -1,3 +1,3 @@
 export const environment = {
-  apiUrl: 'https://railway.app' // Remplacez par votre vraie URL Railway
+  apiUrl: 'http://localhost:8080/api'
 };
